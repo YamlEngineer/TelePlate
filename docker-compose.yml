@@ -1,0 +1,96 @@
+version: "3"
+
+services:
+  bot:
+    image: ${BOT_NAME}
+    build: .
+    container_name: ${BOT_NAME}
+    environment:
+      # BOT
+      BOT_NAME: ${BOT_NAME}
+      ADMIN_ID: ${ADMIN_ID}
+      API_ID: ${API_ID}
+      API_HASH: ${API_HASH}
+      BOT_TOKEN: ${BOT_TOKEN}
+
+      # CACHE
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASS: ${REDIS_PASS}
+      REDIS_DB: 0
+
+      # DATABASE
+      DB_HOST: postgres
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
+      DB_NAME: ${DB_NAME}
+      DB_PORT: 5432
+    networks:
+      - bot
+    volumes:
+      - bot_work_dir:${WORK_DIR}
+    depends_on:
+      - postgres
+      - redis
+
+  postgres:
+    container_name: postgres
+    image: postgres:alpine
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    networks:
+      - bot
+
+  redis:
+    restart: always
+    container_name: redis
+    image: redis:alpine
+    command: redis-server --requirepass ${REDIS_PASS}
+    volumes:
+      - redis:/data
+    networks:
+      - bot
+
+  # pgadmin:
+  #   image: dpage/pgadmin4
+  #   container_name: pgadmin
+  #   depends_on:
+  #     - postgres
+  #   ports:
+  #     - "5051:80"
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
+  #     PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASS}
+  #   restart: always
+  #   volumes:
+  #     - pgadmin:/var/lib/pgadmin:rw
+  #   networks:
+  #     - bot
+
+  # portainer:
+  #   image: portainer/portainer-ce
+  #   container_name: portainer
+  #   restart: always
+  #   ports:
+  #     - "9000:9000"
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #     - portainer:/data
+  #   networks:
+  #     - bot
+
+networks:
+  bot:
+    name: ${BOT_NAME}
+
+volumes:
+  bot_work_dir:
+  postgres:
+  redis:
+  # pgadmin:
+  # portainer:
