@@ -4,9 +4,11 @@ from services import DatabaseService
 import config
 from services import LoggerService
 
+
 class AdminStatus(Enum):
     def __str__(self):
         return str(self.value)
+
     ACTIVE = 1
     DE_ACTIVE = 0
 
@@ -31,10 +33,10 @@ class Admin(Model):
 
 DatabaseService.connect()
 DatabaseService.create_tables([Admin], safe=True)
-if DatabaseService.table_exists(Admin) and Admin.select().count() == 0:
-    Admin.addAdmin(
-        chat_id=config.ADMIN_ID,
-        status=AdminStatus.ACTIVE,
-    )
-    LoggerService.info('New admin seeded')
+# if DatabaseService.table_exists(Admin) and Admin.select().count() == 0:
+#     Admin.addAdmin(
+#         chat_id=config.ADMIN_ID,
+#         status=AdminStatus.ACTIVE,
+#     )
+#     LoggerService.info('New admin seeded')
 DatabaseService.close()
