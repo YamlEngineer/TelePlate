@@ -17,6 +17,12 @@ class Admin(Model):
     status = CharField(choices=[AdminStatus.ACTIVE, AdminStatus.DE_ACTIVE], default=AdminStatus.ACTIVE)
 
     @classmethod
+    def addAdmin(cls, chat_id: int, status: AdminStatus):
+        admin = cls(chat_id=chat_id, status=status)
+        admin.save()
+        return admin
+
+    @classmethod
     def getActiveAdminsID(cls):
         rows = cls.select().where(cls.status == AdminStatus.ACTIVE)
         ids = []
@@ -32,9 +38,6 @@ class Admin(Model):
 DatabaseService.connect()
 DatabaseService.create_tables([Admin], safe=True)
 if DatabaseService.table_exists(Admin) and Admin.select().count() == 0:
-    Admin.addAdmin(
-        chat_id=config.ADMIN_ID,
-        status=AdminStatus.ACTIVE,
-    )
+    Admin.addAdmin(config.ADMIN_ID,AdminStatus.ACTIVE)
     LoggerService.info('New admin seeded')
 DatabaseService.close()
