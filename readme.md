@@ -1,9 +1,14 @@
-![logo](logo.png)
+**Align center:**
+<p align="center" >
+    <img width="612" src="logo.png" alt="logo">
+</p>
+
+
 # TelePlate : Telegram Bot Template with Pyrogram and Docker
 
 ## Introduction
 
-This project serves as a template for creating Telegram bots using Pyrogram and deploying them via Docker. Our goal is to simplify Telegram bot development and deployment , making it as easy as possible.
+#### This project serves as a template for creating Telegram bots using [Pyrgram](https://github.com/pyrogram/pyrogram) and deploying them via Docker. Our goal is to simplify Telegram bot development and deployment , making it as easy as possible.
 
 ## Prerequisites
 
@@ -143,7 +148,7 @@ You have the flexibility to customize the project to your needs:
 ## Contributing
 
 We welcome contributions from other developers:
-1. Clone the repository.
+1. Fork the repository.
 2. Create a new branch for your changes.
 3. Write your code or make improvements.
 4. Submit a pull request for review.
@@ -165,3 +170,7 @@ We encourage users to provide feedback or report issues on the [GitHub project r
 ## Conclusion
 
 In conclusion, this template aims to simplify Telegram bot development and deployment, making it accessible to developers with basic Python knowledge. Feel free to explore and customize the template to suit your bot's needs.
+
+## CopyRight
+
+This Project Based On [Pyrogram](https://github.com/pyrogram/pyrogram) 
