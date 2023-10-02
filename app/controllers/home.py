@@ -1,5 +1,7 @@
 from pyrogram import types
 from models import Admin
+
+
 class HomeController:
 
     def __init__(self) -> None:
@@ -9,4 +11,4 @@ class HomeController:
         await ctx.reply('Hello')
 
     async def startForAdmins(self, ctx: types.Message):
-        await ctx.reply('Hello Fother')
+        await ctx.reply('Hello Father')
