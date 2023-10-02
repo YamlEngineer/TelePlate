@@ -72,18 +72,6 @@ services:
   #   networks:
   #     - bot
 
-  # portainer:
-  #   image: portainer/portainer-ce
-  #   container_name: portainer
-  #   restart: always
-  #   ports:
-  #     - "9000:9000"
-  #   volumes:
-  #     - /var/run/docker.sock:/var/run/docker.sock
-  #     - portainer:/data
-  #   networks:
-  #     - bot
-
 networks:
   bot:
     name: ${BOT_NAME}
@@ -93,4 +81,3 @@ volumes:
   postgres:
   redis:
   # pgadmin:
-  # portainer:
