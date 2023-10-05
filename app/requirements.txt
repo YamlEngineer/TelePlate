@@ -6,4 +6,4 @@ PySocks==1.7.1
 python-dotenv==1.0.0
 redis==5.0.0
 TgCrypto==1.2.5
-uvloop==0.17.0
+
