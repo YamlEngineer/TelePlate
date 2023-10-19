@@ -1,5 +1,6 @@
 import asyncio
 import uvloop
+# Command line 2 if you are in Windows Development Stage amd for production onComment that
 from pyrogram import Client, idle
 from services import LoggerService
 import config 
@@ -17,4 +18,5 @@ async def main():
 
 if __name__ == '__main__':
     uvloop.install()
+    # Command line 20 if you are in Windows Development Stage amd for production onComment that
     asyncio.run(main())
