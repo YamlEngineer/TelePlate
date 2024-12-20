@@ -1,12 +1,12 @@
-import { type Middleware, type SessionOptions, session as createSession } from 'grammy'
+import { MemorySessionStorage, type Middleware, type SessionOptions, session as createSession } from 'grammy'
 import { Context, SessionData } from '../common/context'
 
-type Options = Pick<SessionOptions<SessionData, Context>, 'getSessionKey' | 'storage'>
-
-export function sessionMiddleware(options: Options): Middleware<Context> {
+export function sessionMiddleware(): Middleware<Context> {
   return createSession({
-    getSessionKey: options.getSessionKey,
-    storage: options.storage,
-    initial: () => ({}),
+    getSessionKey: (ctx) => ctx.chatId?.toString(),
+    storage: new MemorySessionStorage(),
+    initial: (): SessionData => {
+      return {}
+    },
   })
 }

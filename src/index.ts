@@ -2,7 +2,7 @@ import { Bot, webhookCallback } from "grammy";
 import { Hono } from "hono";
 import { config } from "./common/config";
 import { logger } from "./helpers/logger";
-import { initializeBot } from "./initializeBot";
+import { initializeBot } from "./bootstrap";
 
 // Init Bot
 const bot = initializeBot();
@@ -15,7 +15,9 @@ if (config.botMode === "webhook") {
   const app = new Hono();
 
   // Add the webhook callback to the Hono app
-  app.post("/telegram-webhook", webhookCallback(bot, "hono"));
+  app.post(`/${config.botWebhookURI}`, webhookCallback(bot, "hono", {
+    secretToken: config.botWebhookSecret
+  }));
 
   // Start the Hono app using Bun's built-in HTTP server
   Bun.serve({

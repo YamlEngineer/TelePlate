@@ -13,10 +13,6 @@ import { unhandledModule } from "./modules/unhandled/unhandled.module";
 import { languageModule } from "./modules/language/language.module";
 import { sessionMiddleware } from "./middlewares/session.middleware";
 
-function getSessionKey(ctx: Omit<Context, 'session'>) {
-  return ctx.chat?.id.toString()
-}
-
 export const initializeBot = () : Bot<Context> => {
 
   // Exit app if bot token not set
@@ -31,12 +27,12 @@ export const initializeBot = () : Bot<Context> => {
   bot.api.config.use(parseMode("HTML"));
 
   // Use the middleware
-  if (config.botMode === "polling") bot.use(sequentialize(getSessionKey))
+  if (config.botMode === "polling") bot.use(sequentialize((ctx) => ctx.chatId?.toString()))
   config.debug && bot.use(updateLoggingMiddleware);
   bot.use(autoChatAction(bot.api));
   bot.use(hydrateReply);
   bot.use(hydrate());
-  bot.use(sessionMiddleware({ getSessionKey }));
+  bot.use(sessionMiddleware());
   bot.use(i18n);
 
   // Add Modules

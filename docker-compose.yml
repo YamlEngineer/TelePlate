@@ -1,0 +1,6 @@
+services:
+  teleplate:
+    image: ghcr.io/yamlengineer/teleplate:latest
+    container_name: teleplate
+    restart: always
+    env_file: .env
