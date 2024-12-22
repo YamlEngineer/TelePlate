@@ -10,13 +10,6 @@ Bot starter template based on [grammY](https://grammy.dev/) bot framework.
 - Graceful shutdown
 - Logger (powered by [pino](https://github.com/pinojs/pino))
 - Ultrafast and multi-runtime server (powered by [hono](https://github.com/honojs/hono))
-- Ready-to-use deployment setups:
-    - [Docker](#docker-dockercom)
-- Examples:
-    - grammY plugins:
-        - [Conversations](#grammy-conversations-grammydevpluginsconversations)
-    - Runtimes:
-      - [Bun](#bun-bunsh)
 
 ## Usage
 
