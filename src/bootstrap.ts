@@ -12,6 +12,7 @@ import { sequentialize } from '@grammyjs/runner'
 import { unhandledModule } from "./modules/unhandled/unhandled.module";
 import { languageModule } from "./modules/language/language.module";
 import { sessionMiddleware } from "./middlewares/session.middleware";
+import { errorHandler } from "./common/error";
 
 export const initializeBot = () : Bot<Context> => {
 
@@ -25,20 +26,21 @@ export const initializeBot = () : Bot<Context> => {
 
   // Bot Configs
   bot.api.config.use(parseMode("HTML"));
+  const protectedBot = bot.errorBoundary(errorHandler)
 
   // Use the middleware
-  if (config.botMode === "polling") bot.use(sequentialize((ctx) => ctx.chatId?.toString()))
-  config.debug && bot.use(updateLoggingMiddleware);
-  bot.use(autoChatAction(bot.api));
-  bot.use(hydrateReply);
-  bot.use(hydrate());
-  bot.use(sessionMiddleware());
-  bot.use(i18n);
+  if (config.botMode === "polling") protectedBot.use(sequentialize((ctx) => ctx.chatId?.toString()))
+  config.debug && protectedBot.use(updateLoggingMiddleware);
+  protectedBot.use(autoChatAction(bot.api));
+  protectedBot.use(hydrateReply);
+  protectedBot.use(hydrate());
+  protectedBot.use(sessionMiddleware());
+  protectedBot.use(i18n);
 
   // Add Modules
-  bot.use(homeModule);
-  if (isMultipleLocales) bot.use(languageModule)
-  bot.use(unhandledModule);
+  protectedBot.use(homeModule);
+  if (isMultipleLocales) protectedBot.use(languageModule)
+  protectedBot.use(unhandledModule);
 
   return bot
   
