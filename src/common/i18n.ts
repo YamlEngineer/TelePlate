@@ -4,7 +4,7 @@ import * as path from "path";
 
 export const i18n = new I18n<Context>({
   defaultLocale: "en",
-  directory: path.resolve(process.cwd(), "locales"),
+  directory: path.resolve(__dirname, '../../locales'),
   useSession: true,
   fluentBundleOptions: {
     useIsolating: false,
