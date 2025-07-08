@@ -17,7 +17,7 @@ Follow these steps to set up and run your bot using this template:
 
 1. **Create a New Repository**
 
-    Start by creating a new repository using this template. You can do this by clicking [here](https://github.com/yamlengineer/teleplate/generate).
+    Start by creating a new repository using this template. You can do this by clicking [here](https://github.com/byteholic/teleplate/generate).
 
 2. **Environment Variables Setup**
 
